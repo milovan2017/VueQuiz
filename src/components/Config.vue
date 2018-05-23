@@ -123,7 +123,7 @@ export default {
       }
    },
    created(){
-      let url = '/VueQuiz/src/assets/country-capitals.json'; //paziti
+      let url = '/VueQuiz/src/assets/country-capitals.json'; //paziti pri dev /country-capitals.json deploy : /VueQuiz/src/assets/country-capitals.json
       this.$http.get(url).then(response => {
          this.citiesArr = response.body;
          }, response => {

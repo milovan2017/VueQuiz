@@ -1,7 +1,7 @@
 <template lang="html">
    <div class="row"
       v-if="ended">
-      <div class="col-sm-12">
+      <div class="col-sm-12 table_cont">
          <table class="table table-hover">
             <thead>
                <tr class="d-flex">
@@ -50,5 +50,10 @@ export default {
    }
    .notTrue {
       background-color: red;
+   }
+   .table_cont {
+      height: 600px;
+      overflow-y: scroll;
+      margin-bottom: 50px;
    }
 </style>
