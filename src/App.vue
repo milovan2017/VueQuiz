@@ -146,7 +146,7 @@ export default {
   box-shadow: 0px 0px 10px black;
   background-color: #00a8ff;
   opacity: 0.9;
-  height: 800px;
+  max-height: 800px;
 }
 
 html {
