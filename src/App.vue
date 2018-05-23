@@ -1,0 +1,161 @@
+<template>
+   <div id="app" class="container" >
+      <div class="row">
+         <div class="col-sm-12 col-md-6 offset-md-3">
+            <app-config v-if="!started"
+               @getQuestionsArr='getQuestionsArr($event)'></app-config>
+            <br>
+            <app-question
+               v-if = "started"
+               :question="question"
+               :currentQuestion="currentQuestion"
+               :maxQuestions="maxQuestions"
+               :rightAnswers="rightAnswers"
+               :wrongAnswers="wrongAnswers"
+               :ended="ended"
+               @clickAnswer = 'clickAnswer($event)'
+               ></app-question>
+            <app-results
+               :myAnswers="myAnswers"
+               :ended = "ended"
+               ></app-results>
+         </div>
+      </div>
+   </div>
+</template>
+
+<script>
+//const EventBus = new Vue();
+import Config from './components/Config.vue'
+import Question from './components/Question.vue'
+import Results from './components/Results.vue'
+
+export default {
+  name: 'app',
+  data () {
+    return {
+      started : false,
+      ended: false,
+      currentQuestion: 0,
+      maxQuestions: 0,
+      rightAnswers: 0,
+      wrongAnswers: 0,
+      myAnswers: {
+         rightSum : 0,
+         wrongSum: 0,
+         answerArr: []
+      },
+      question: {
+         country:'',
+         capital:'',
+         fourCapitals:''
+      }
+    }
+   },
+   components: {
+      appConfig : Config,
+      appQuestion : Question,
+      appResults : Results
+   },
+   methods : {
+      callResults (){
+         this.ended = true;
+      },
+      clickAnswer(obj){
+         let answer = obj.ansClickedCity;
+         let isAnswerTrue = obj.ansBool;
+         let obj2 = {
+            country: this.question.country,
+            capital: this.question.capital,
+            answer: answer,
+            isAnswerTrue: isAnswerTrue
+         }
+         if (isAnswerTrue === true) {
+            this.rightAnswers++;
+            this.myAnswers.answerArr.push(obj2);
+         } else {
+            this.wrongAnswers++;
+            this.myAnswers.answerArr.push(obj2);
+         }
+         this.nextQuestion();
+      },
+      getQuestionsArr(arr) { //get array with choosen questions from child component Config.vue
+         this.choosenArr = arr.splice('');
+         this.randomizedArr = this.randomize(this.choosenArr,15); //uraditi da se inz configa namesta drugi argument - maksimum pitanja
+         this.maxQuestions = this.randomizedArr.length;
+         this.start();
+      },
+      start(){
+         this.started = true;
+         this.question = this.randomizedArr[this.currentQuestion];
+         this.question.fourCapitals = this.buildFourCapitals(this.randomizedArr, this.question.capital);
+         this.currentQuestion = 1;
+      },
+      nextQuestion(){
+         if (this.currentQuestion+1 <= 15) { //15 zameniti za promenljivu - broj pitanja
+             this.question = this.randomizedArr[this.currentQuestion];
+             this.question.fourCapitals = this.buildFourCapitals(this.randomizedArr, this.question.capital);
+             this.currentQuestion++;
+         } else {
+            this.callResults();
+         }
+      },
+      randomize(arr, max){
+         let arrFinal = [];
+         let arrCopy = [];
+         let len = max || arr.length; // || staviti mozda svuda gde idu argumenti da bi bio zasticen
+         arrCopy = arr.slice('');
+         for (var i = 0; i < len; i++) {
+            let rand = Math.floor(Math.random()*arrCopy.length);
+            arrFinal.push(arrCopy[rand]);
+            arrCopy.splice(rand,1);
+         }
+         return arrFinal;
+      },
+      buildFourCapitals(arr,trueAns){
+         let arrFour = [];
+         let arrCopy = [];
+         let len = 3;
+         arrCopy = arr.slice('');
+         for (var i = 0; i < arr.length; i++) {
+            if (arr[i].capital === trueAns) {
+               arrCopy.splice(i,1);
+            }
+         }
+         for (var i = 0; i < len; i++) {
+               let rand = Math.floor(Math.random()*arrCopy.length);
+               arrFour.push(arrCopy[rand].capital);
+               arrCopy.splice(rand,1);
+         }
+         arrFour.push(trueAns);
+         return this.randomize(arrFour);
+      }
+   }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+  user-select: none;
+  box-shadow: 0px 0px 10px black;
+  background-color: #00a8ff;
+  opacity: 0.9;
+}
+
+html {
+   background: url(https://www.greenbiz.com/sites/default/files/styles/panopoly_image_full/public/images/articles/featured/worldcities_zoyalipets_sstock.jpg?itok=YFL7hTHP) no-repeat center center fixed;
+   background-size: cover;
+   height: 100%;
+}
+
+body{
+   background-color: transparent;
+}
+
+</style>
