@@ -117,6 +117,7 @@ export default {
 .progressCont {
    box-shadow: 0px 0px 2px white;
    border-radius: 5px;
+   margin-bottom: 20px;
 }
 
 .questionHead {

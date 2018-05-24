@@ -105,7 +105,7 @@ export default {
       },
       getQuestionsArr(arr) { //get array with choosen questions from child component Config.vue
          this.choosenArr = arr.splice('');
-         this.randomizedArr = this.randomize(this.choosenArr, 5); //uraditi da se inz configa namesta drugi argument - maksimum pitanja
+         this.randomizedArr = this.randomize(this.choosenArr, 10); //uraditi da se inz configa namesta drugi argument - maksimum pitanja
          this.maxQuestions = this.randomizedArr.length;
          this.start();
       },
@@ -117,7 +117,7 @@ export default {
       },
       nextQuestion() {
          let self = this;
-         if (this.currentQuestion + 1 <= 5) { //15 zameniti za promenljivu - broj pitanja
+         if (this.currentQuestion + 1 <= 10) { //15 zameniti za promenljivu - broj pitanja
             this.question = this.randomizedArr[this.currentQuestion];
             this.question.fourCapitals = this.buildFourCapitals(this.randomizedArr, this.question.capital);
             this.currentQuestion++;
