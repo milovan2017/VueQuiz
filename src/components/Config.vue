@@ -4,7 +4,7 @@
          <h2 class="title">Choose Continents</h2>
       </div>
       <div class="row mx-auto">
-         <div class="col-sm-4" v-for="(continent, index) in config.continentOption">
+         <div class="col-sm-4 contPad" v-for="(continent, index) in config.continentOption">
             <div class="">
                <img
                   :src="continent.imgUrl"
@@ -149,7 +149,7 @@ export default {
 }
 
 .notchosen {
-   border: 8px solid white;
+   border: 8px solid #00a8ff;
 }
 
 .title {
@@ -164,8 +164,8 @@ export default {
    margin: 15px;
 }
 
-.cnf {
-   transition: height .5s;
+.contPad {
+   padding-top: 20px;
 }
 
 </style>
