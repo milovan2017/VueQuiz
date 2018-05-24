@@ -49,8 +49,6 @@ export default {
   ],
   methods: {
      startAgain(){
-        console.log('aa');
-        //this.ended = false;
         this.$emit('startAgain','poruka neka')
      }
   }

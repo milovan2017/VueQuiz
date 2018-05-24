@@ -42,6 +42,7 @@ export default {
       maxQuestions: 0,
       rightAnswers: 0,
       wrongAnswers: 0,
+      randomizedArr : [],
       myAnswers: {
          rightSum : 0,
          wrongSum: 0,
@@ -61,9 +62,26 @@ export default {
    },
    methods : {
       startAgain(poruka){
-         console.log(poruka);
          this.started = false;
          this.ended = false;
+         this.currentQuestion = 0;
+         this.maxQuestions = 0;
+         this.rightAnswers = 0;
+         this.wrongAnswers = 0;
+         this.randomizedArr = [];
+         this.myAnswers = {
+            rightSum : 0,
+            wrongSum: 0,
+            answerArr: []
+         };
+         this.question = {
+            country:'',
+            capital:'',
+            fourCapitals:''
+         };
+         this.started = false;
+         this.ended = false;
+         this.currentQuestion = 0;
       },
       callResults (){
          this.ended = true;
