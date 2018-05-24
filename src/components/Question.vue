@@ -135,6 +135,8 @@ export default {
 .btn-ans {
    box-shadow: 0px 0px 2px white;
    transition: box-shadow .1s;
+   padding-top: 10px;
+   padding-bottom: 10px;
 }
 
 .btn-ans:hover {

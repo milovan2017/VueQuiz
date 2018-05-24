@@ -26,7 +26,6 @@
 </template>
 
 <script>
-//const EventBus = new Vue();
 import Config from './components/Config.vue'
 import Question from './components/Question.vue'
 import Results from './components/Results.vue'
@@ -119,7 +118,7 @@ export default {
          let self = this;
          if (this.currentQuestion + 1 <= 10) { //15 zameniti za promenljivu - broj pitanja
             this.question = this.randomizedArr[this.currentQuestion];
-            this.question.fourCapitals = this.buildFourCapitals(this.randomizedArr, this.question.capital);
+            this.question.fourCapitals = this.buildFourCapitals(this.choosenArr, this.question.capital);
             this.currentQuestion++;
          } else {
             setTimeout(function() {
@@ -173,7 +172,6 @@ export default {
    box-shadow: 0px 0px 10px black;
    background-color: #00a8ff;
    opacity: 0.97;
-   max-height: 800px;
    max-width: 1000px;
 }
 

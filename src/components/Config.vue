@@ -91,7 +91,6 @@ export default {
             }
          }
          let questionArr = this.chosenObj;
-
          this.$emit('getQuestionsArr', questionArr);
       },
       clickCont(index) {
@@ -142,7 +141,6 @@ export default {
    box-shadow: 0px 0px 10px lightgreen;
    cursor: pointer;
 }
-
 
 .chosen {
    border: 8px solid green;
