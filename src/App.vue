@@ -106,7 +106,7 @@ export default {
              this.currentQuestion++;
          } else {
             setTimeout(function(){
-               this.callResults();
+               self.callResults();
             },2000)
          }
       },
