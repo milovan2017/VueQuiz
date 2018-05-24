@@ -185,4 +185,10 @@ body{
    background-color: transparent;
 }
 
+@media screen and (max-width: 768px) {
+   #app {
+      margin-top: 0px;
+   }
+}
+
 </style>
