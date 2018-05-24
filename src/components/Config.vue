@@ -32,14 +32,13 @@
 
 <script>
 export default {
-   data(){
-      return{
+   data() {
+      return {
          citiesArr: [],
-         chosenObj:[],
-         isOneChosen : false,
+         chosenObj: [],
+         isOneChosen: false,
          config: {
-            continentOption: [
-               {
+            continentOption: [{
                   name: 'World',
                   imgUrl: 'src/assets/cont_imgs/world.jpg',
                   chosen: false
@@ -70,7 +69,7 @@ export default {
                   chosen: false
                }
             ],
-            continentAll : false
+            continentAll: false
          }
       }
    },
@@ -78,19 +77,19 @@ export default {
       start() {
          this.chosenObj = [];
          var length = this.citiesArr.length;
-            for (var i = 0; i < length; i++) {
+         for (var i = 0; i < length; i++) {
             for (var j = 0; j < this.chosenArr.length; j++) {
-                  if (this.chosenArr[j] == this.citiesArr[i].ContinentName) {
-                     let country = this.citiesArr[i].CountryName,
-                            capital = this.citiesArr[i].CapitalName;
-                     let obj = {
-                        country,
-                        capital
-                     };
-                     this.chosenObj.push(obj);
-                  }
+               if (this.chosenArr[j] == this.citiesArr[i].ContinentName) {
+                  let country = this.citiesArr[i].CountryName,
+                     capital = this.citiesArr[i].CapitalName;
+                  let obj = {
+                     country,
+                     capital
+                  };
+                  this.chosenObj.push(obj);
                }
             }
+         }
          let questionArr = this.chosenObj;
 
          this.$emit('getQuestionsArr', questionArr);
@@ -99,7 +98,7 @@ export default {
          let clickedCont = this.config.continentOption[index];
          let contArr = this.config.continentOption;
          let contArrLen = contArr.length;
-         clickedCont.chosen =! clickedCont.chosen;
+         clickedCont.chosen = !clickedCont.chosen;
          if (clickedCont.name === "World") {
             if (clickedCont.chosen) {
                for (var i = 1; i < contArrLen; i++) {
@@ -124,13 +123,13 @@ export default {
          }
       }
    },
-   created(){
-      let url = '/country-capitals.json'; //paziti pri dev /country-capitals.json deploy : /VueQuiz/src/assets/country-capitals.json
+   created() {
+      let url = '/VueQuiz/src/assets/country-capitals.json'; //paziti pri dev /country-capitals.json deploy : /VueQuiz/src/assets/country-capitals.json
       this.$http.get(url).then(response => {
          this.citiesArr = response.body;
-         }, response => {
-            // error callback
-         });
+      }, response => {
+         // error callback
+      });
    }
 }
 </script>

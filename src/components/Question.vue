@@ -11,18 +11,19 @@
             <div class="col-sm-12 col-md-6 col-pad"
                v-for="capital in question.fourCapitals">
                <button
-                  class="btn btn-primary btn-block"
+                  class="btn btn-primary btn-block btn-ans"
                   type="button"
                   name="button"
+                  :disabled = "cantClick"
                   @click="checkAnswer(capital,$event)">{{capital}}</button>
             </div>
          </div>
       </div>
-      <div class="col-sm-8 offset-sm-2 progressCont">
-         <div class="row"
-            v-if="!ended">
+      <div class="col-sm-8 offset-sm-2 progressCont"
+         v-if="!ended">
+         <div class="row">
             <div class="col-sm-12">
-               <h4>Question {{currentQuestion}} of {{maxQuestions}}</h4>
+               <h4 class="questionNum">Question {{currentQuestion}} of {{maxQuestions}}</h4>
             </div>
          </div>
          <div class="row progressRow">
@@ -46,12 +47,13 @@
 
 <script>
 export default {
-   data(){
+   data() {
       return {
          questionGen: 'What is the capital of ',
          isTrue: false,
          isClicked: false,
-         clicked :""
+         clicked: "",
+         cantClick: false
       }
    },
    props: [
@@ -66,7 +68,8 @@ export default {
       calculatePercentage(number, max) {
          return max / num * 100;
       },
-      checkAnswer(capital,btnClicked){
+      checkAnswer(capital, btnClicked) {
+         this.cantClick = true;
          var self = this;
          self.clickedCity = capital;
          this.isClicked = true;
@@ -82,17 +85,20 @@ export default {
             this.isTrue = false;
             btnClicked.classList.add("btn-danger");
          }
-         setTimeout(function(){
+         setTimeout(function() {
             self.isClicked = false;
             btnClicked.classList.remove("btn-success");
             btnClicked.classList.remove("btn-danger");
             btnClicked.style.transition = "";
             let obj = {
-               ansBool : self.isTrue,
-               ansClickedCity : self.clickedCity
+               ansBool: self.isTrue,
+               ansClickedCity: self.clickedCity
             }
-            self.$emit('clickAnswer', obj); //
-         },600)
+            self.$emit('clickAnswer', obj);
+            setTimeout(function() {
+               self.cantClick = false
+            }, 400)
+         }, 600)
       }
    }
 }
@@ -100,14 +106,17 @@ export default {
 
 <style lang="css">
 .col-pad {
-   padding: 10px;
-   padding-left: 20px;
-   padding-right: 20px;
+   padding: 15px 20px 10px 20px;
 }
 
 .progressCont, .questionCont {
    margin-top:20px;
    margin-bottom: 20px;
+}
+
+.progressCont {
+   box-shadow: 0px 0px 2px white;
+   border-radius: 5px;
 }
 
 .questionHead {
@@ -120,7 +129,19 @@ export default {
 
 .progressRow {
    margin-bottom: 10px;
-   margin-top: 10px;
+}
+
+.btn-ans {
+   box-shadow: 0px 0px 2px white;
+   transition: box-shadow .1s;
+}
+
+.btn-ans:hover {
+   box-shadow: 0px 0px 20px white;
+}
+
+.questionNum {
+   padding: 10px;
 }
 
 </style>
