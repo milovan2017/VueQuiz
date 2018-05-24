@@ -1,29 +1,30 @@
 <template lang="html">
-   <div class="">
-      <div class="row">
+   <div class="row cnf">
+      <div class="col-sm-12">
+         <h2 class="title">Choose Continents</h2>
+      </div>
+      <div class="row mx-auto">
+         <div class="col-sm-4" v-for="(continent, index) in config.continentOption">
+            <div class="">
+               <img
+                  :src="continent.imgUrl"
+                  alt="continent.name"
+                  class="contImg"
+                  :class="{chosen:continent.chosen, notchosen:!continent.chosen}"
+                  @click="clickCont(index)">
+            </div>
+            <div class="">
+               <label>{{ continent.name }}</label>
+            </div>
+         </div>
          <div class="col-sm-12">
-            <h2 v-if="!isOneChosen">Choose Continents</h2>
-            <h2
+            <button
                type="button"
                name="button"
-               class="btn btn-primary"
-               v-if = "isOneChosen"
-               @click="start">Start</h2>
-         </div>
-         <div class="row">
-            <div class="col-sm-4" v-for="(continent, index) in config.continentOption">
-               <div class="">
-                  <img
-                     :src="continent.imgUrl"
-                     alt="continent.name"
-                     class="contImg"
-                     :class="{chosen:continent.chosen, notchosen:!continent.chosen}"
-                     @click="clickCont(index)">
-               </div>
-               <div class="">
-                  <label>{{ continent.name }}</label>
-               </div>
-            </div>
+               class="btn btn-primary start-btn"
+               v-bind:class="{'btn-success': isOneChosen}"
+               :disabled = "!isOneChosen"
+               @click="start">Start Quiz</button>
          </div>
       </div>
    </div>
@@ -91,6 +92,7 @@ export default {
                }
             }
          let questionArr = this.chosenObj;
+
          this.$emit('getQuestionsArr', questionArr);
       },
       clickCont(index) {
@@ -123,7 +125,7 @@ export default {
       }
    },
    created(){
-      let url = '/VueQuiz/src/assets/country-capitals.json'; //paziti pri dev /country-capitals.json deploy : /VueQuiz/src/assets/country-capitals.json
+      let url = '/country-capitals.json'; //paziti pri dev /country-capitals.json deploy : /VueQuiz/src/assets/country-capitals.json
       this.$http.get(url).then(response => {
          this.citiesArr = response.body;
          }, response => {
@@ -144,12 +146,27 @@ export default {
 
 
 .chosen {
-   border: 2px solid green;
+   border: 8px solid green;
 }
 
 .notchosen {
-   border: 2px solid white;
+   border: 8px solid white;
 }
 
+.title {
+   margin: 20px;
+}
+
+.start-btn {
+   padding: 10px 100px;
+   font-size: 20px;
+   opacity: 1;
+   border: 2px solid white;
+   margin: 15px;
+}
+
+.cnf {
+   transition: height .5s;
+}
 
 </style>

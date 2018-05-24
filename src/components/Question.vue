@@ -1,9 +1,9 @@
 <template lang="html">
    <div class="row">
-      <div class="col-sm-8 offset-sm-2"
+      <div class="col-sm-8 offset-sm-2 questionCont"
          v-if="!ended">
          <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 questionHead">
                <h3> {{ questionGen }} {{ question.country }} ?</h3>
             </div>
          </div>
@@ -18,27 +18,24 @@
             </div>
          </div>
       </div>
-      <br>
-      <div class="col-sm-8 offset-sm-2" style="margin-top:20px;">
+      <div class="col-sm-8 offset-sm-2 progressCont">
          <div class="row"
             v-if="!ended">
             <div class="col-sm-12">
                <h4>Question {{currentQuestion}} of {{maxQuestions}}</h4>
             </div>
          </div>
-         <br>
-         <div class="row">
+         <div class="row progressRow">
             <div class="col-sm-12">
                <div class="progress">
-                  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" v-bind:style="`width: ${((rightAnswers)/maxQuestions)*100}%;`">right: {{rightAnswers}}</div>
+                  <div class="progress-bar progress-bar-striped bg-success progressTxt" role="progressbar" v-bind:style="`width: ${((rightAnswers)/maxQuestions)*100}%;`">right: {{rightAnswers}}</div>
                </div>
             </div>
          </div>
-         <br>
          <div class="row">
             <div class="col-sm-12">
                <div class="progress">
-                  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" v-bind:style="`width: ${((wrongAnswers)/maxQuestions)*100}%;`">wrong: {{wrongAnswers}}</div>
+                  <div class="progress-bar progress-bar-striped bg-danger progressTxt" role="progressbar" v-bind:style="`width: ${((wrongAnswers)/maxQuestions)*100}%;`">wrong: {{wrongAnswers}}</div>
                </div>
             </div>
          </div>
@@ -94,7 +91,6 @@ export default {
                ansBool : self.isTrue,
                ansClickedCity : self.clickedCity
             }
-            console.log(obj);
             self.$emit('clickAnswer', obj); //
          },600)
       }
@@ -107,6 +103,24 @@ export default {
    padding: 10px;
    padding-left: 20px;
    padding-right: 20px;
+}
+
+.progressCont, .questionCont {
+   margin-top:20px;
+   margin-bottom: 20px;
+}
+
+.questionHead {
+   margin-bottom: 20px;
+}
+
+.progressTxt {
+   color: black;
+}
+
+.progressRow {
+   margin-bottom: 10px;
+   margin-top: 10px;
 }
 
 </style>

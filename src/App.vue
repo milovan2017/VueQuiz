@@ -18,6 +18,8 @@
             <app-results
                :myAnswers="myAnswers"
                :ended = "ended"
+               @startAgain='startAgain($event)'
+
                ></app-results>
          </div>
       </div>
@@ -58,6 +60,11 @@ export default {
       appResults : Results
    },
    methods : {
+      startAgain(poruka){
+         console.log(poruka);
+         this.started = false;
+         this.ended = false;
+      },
       callResults (){
          this.ended = true;
       },
@@ -81,7 +88,7 @@ export default {
       },
       getQuestionsArr(arr) { //get array with choosen questions from child component Config.vue
          this.choosenArr = arr.splice('');
-         this.randomizedArr = this.randomize(this.choosenArr,15); //uraditi da se inz configa namesta drugi argument - maksimum pitanja
+         this.randomizedArr = this.randomize(this.choosenArr,5); //uraditi da se inz configa namesta drugi argument - maksimum pitanja
          this.maxQuestions = this.randomizedArr.length;
          this.start();
       },
@@ -92,12 +99,15 @@ export default {
          this.currentQuestion = 1;
       },
       nextQuestion(){
-         if (this.currentQuestion+1 <= 15) { //15 zameniti za promenljivu - broj pitanja
+         let self = this;
+         if (this.currentQuestion+1 <= 5) { //15 zameniti za promenljivu - broj pitanja
              this.question = this.randomizedArr[this.currentQuestion];
              this.question.fourCapitals = this.buildFourCapitals(this.randomizedArr, this.question.capital);
              this.currentQuestion++;
          } else {
-            this.callResults();
+            setTimeout(function(){
+               this.callResults();
+            },2000)
          }
       },
       randomize(arr, max){

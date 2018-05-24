@@ -1,28 +1,37 @@
 <template lang="html">
    <div class="row"
       v-if="ended">
-      <div class="col-sm-12 table_cont">
+      <div class="col-sm-8 offset-sm-2 table_cont">
          <table class="table table-hover">
             <thead>
-               <tr class="d-flex">
+               <tr>
                   <th>#</th>
                   <th>Country</th>
                   <th>Your Answer</th>
-                  <th>Capital</th>
+                  <th
+                     @click="show = true"
+                     >Click to reveal answers</th>
                </tr>
             </thead>
             <tbody>
                <tr v-for="(ans,index) in myAnswers.answerArr"
-                  class="d-flex"
                   v-bind:class="{'table-success': ans.isAnswerTrue, 'table-danger': !ans.isAnswerTrue}"
-                  @click="show = true" >
-                  <td>{{index}}</td>
+                  >
+                  <td>{{index+1}}</td>
                   <td> {{ans.country}}</td>
                   <td> {{ans.answer}}</td>
                   <td v-show="show"> {{ans.capital}}</td>
                </tr>
             </tbody>
          </table>
+      </div>
+      <div class="col-sm-12">
+         <button
+            type="button"
+            name="button"
+            class="btn btn-primary start-btn"
+            @click="startAgain"
+            >Start Again</button>
       </div>
    </div>
 </template>
@@ -39,7 +48,11 @@ export default {
     "ended"
   ],
   methods: {
-
+     startAgain(){
+        console.log('aa');
+        //this.ended = false;
+        this.$emit('startAgain','poruka neka')
+     }
   }
 }
 </script>
