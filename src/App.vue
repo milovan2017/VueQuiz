@@ -176,7 +176,7 @@ export default {
 }
 
 html {
-   background: url(https://www.greenbiz.com/sites/default/files/styles/panopoly_image_full/public/images/articles/featured/worldcities_zoyalipets_sstock.jpg?itok=YFL7hTHP) no-repeat center center fixed;
+   background: url(src\assets\cont_imgs\back.jpg) no-repeat center center fixed;
    background-size: cover;
    height: 100%;
 }
