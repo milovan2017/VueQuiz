@@ -176,7 +176,7 @@ export default {
 }
 
 html {
-   background: url("assets/cont_imgs/back.jpg") no-repeat center center fixed;
+   background: url(https://s7.postimg.cc/vnfkmn16j/back.jpg) no-repeat center center fixed;
    background-size: cover;
    height: 100%;
 }
